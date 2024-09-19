@@ -1,0 +1,44 @@
+#GET VERSION
+GET http://localhost:3000 HTTP/1.1
+
+###
+
+#CRIA USUARIO
+POST http://localhost:3000/api/auth/register HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Guilherme Karam",
+  "email": "guilherme.klm22@gmail.com",
+  "password": "senha123"
+}
+
+###
+
+#CRIA SALA
+POST http://localhost:3000/api/room HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Sala Refeitorio",
+  "type": "MEETING_ROOM",
+  "capacity": 300,
+  "locationId": 1,
+  "resourceIds": [
+    1,2,3
+  ],
+  "numberOfSeats": 100
+}
+
+###
+
+#CRIA LOCALIZACAO
+POST http://localhost:3000/api/location HTTP/1.1
+Content-Type: application/json
+{
+  "address": "Rua Coronel Genuino, 130 - Centro, Porto Alegre",
+  "floor": 8,
+  "roomNumber": 802,
+  "areaDescription": "Descricao da area",
+  "sector": "sector"
+}
