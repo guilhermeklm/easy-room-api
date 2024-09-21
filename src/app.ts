@@ -1,15 +1,17 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
+import cors from "cors";
+import { defaultRoute } from "./application/routers/default-route";
+import { roomRoute } from "./application/routers/room-route";
+import { userRoute } from "./application/routers/user-route";
 
 const app = express();
 
+app.use(cors());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// app.use((req: Request, res: Response, next: NextFunction) => {
-//   res.send("Hello World");
-// });
-
-// app.use((error: Error, req: Request, res: Response, next: NextFunction) => {
-//   res.status(500).send(error.message);
-// });
+app.use(defaultRoute);
+app.use(roomRoute);
+app.use(userRoute);
 
 export default app;

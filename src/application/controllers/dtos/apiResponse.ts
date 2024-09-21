@@ -1,4 +1,4 @@
-const dictionary = require("../../dictionary/pt.json");
+const dictionary = require("../../../dictionary/pt.json");
 
 interface ApiError {
   type: TypeErr;
