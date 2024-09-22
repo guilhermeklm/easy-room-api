@@ -1,10 +1,10 @@
 export class User {
-  private _id: string | null;
+  private _id: string;
   private _name: string;
   private _email: string;
   private _password: string;
 
-  constructor(id: string | null, name: string, email: string, password: string) {
+  constructor(id: string, name: string, email: string, password: string) {
     this._id = id;
     this._name = name;
     this._email = email;
@@ -26,7 +26,7 @@ export class User {
     }
   }
 
-  get id(): string | null {
+  get id(): string {
     return this._id;
   }
 

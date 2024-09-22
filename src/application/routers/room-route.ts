@@ -7,7 +7,7 @@ const roomRoute = express.Router();
 const roomController = ControllerFactory.getRoomControllerInstance();
 
 roomRoute.post("/api/v1/room", authValidator.validateSession, (req: Request, res: Response) =>
-  roomController.createRoom(req, res)
+  roomController.create(req, res)
 );
 
 roomRoute.get("/api/v1/room/:roomId", authValidator.validateSession, (req: Request, res: Response) =>

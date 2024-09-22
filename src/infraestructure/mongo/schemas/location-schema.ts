@@ -8,6 +8,8 @@ const LocationSchema = new Schema({
   roomNumber: String,
   areaDescription: String,
   sector: String,
-});
+},
+  { _id: false }
+);
 
 export { LocationSchema };

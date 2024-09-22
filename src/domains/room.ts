@@ -2,26 +2,24 @@ import { Location } from "./location";
 import { Resource } from "./resource";
 
 export enum TypeRoom {
-  MEETING_ROOM,
-  AUDITORY,
+  MEETING_ROOM = "MEETING_ROOM",
+  AUDITORY = "AUDITORY",
 }
 
 export class Room {
-  private _roomId: number;
-  private _userId: number;
+  private _roomId: string;
+  private _userId: string;
   private _name: string;
   private _type: TypeRoom;
-  private _capacity: number;
   private _location: Location;
   private _resources: Resource[];
   private _numberOfSeats: number;
 
   constructor(
-    roomId: number,
-    userId: number,
+    roomId: string,
+    userId: string,
     name: string,
-    type: TypeRoom,
-    capacity: number,
+    type: string,
     location: Location,
     resources: Resource[],
     numberOfSeats: number
@@ -29,18 +27,40 @@ export class Room {
     this._roomId = roomId;
     this._userId = userId;
     this._name = name;
-    this._type = type;
-    this._capacity = capacity;
+    this._type = TypeRoom[type as keyof typeof TypeRoom];
     this._location = location;
     this._resources = resources;
     this._numberOfSeats = numberOfSeats;
+    this.validate()
   }
 
-  get roomId(): number {
+  public validate() {
+    if(!this.name) {
+      throw Error("Nome nao pode ser vazio")
+    }
+
+    if(!this.type) {
+      throw Error("Tipo da sala nao pode ser vazio")
+    }
+
+    if(!this.location) {
+      throw Error("Local nao pode ser vazio")
+    }
+
+    if(this.resources == null || this.resources.length == 0) {
+      throw Error("Recursos nao pode ser vazio")
+    }
+
+    if(!this.numberOfSeats) {
+      throw Error("Numero de cadeiras nao pode ser vazio")
+    }
+  }
+
+  get roomId(): string {
     return this._roomId;
   }
 
-  get userId(): number {
+  get userId(): string {
     return this._userId;
   }
 
@@ -50,10 +70,6 @@ export class Room {
 
   get type(): TypeRoom {
     return this._type;
-  }
-
-  get capacity(): number {
-    return this._capacity;
   }
 
   get location(): Location {

@@ -5,8 +5,8 @@ import { UseCaseFactory } from "../useCases/use-case-factory";
 
 export class ControllerFactory {
   public static getRoomControllerInstance(): RoomController {
-    const roomRepo = RepositoryFactory.getRoomRepositoryInstance();
-    return new RoomController(roomRepo);
+    const createRoom = UseCaseFactory.getCreateRoomInstance();
+    return new RoomController(createRoom);
   }
 
   public static getUserControllerInstance(): UserController {

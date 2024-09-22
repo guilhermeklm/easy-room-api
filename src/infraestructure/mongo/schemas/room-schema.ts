@@ -5,15 +5,20 @@ import { ResourceSchema } from "./resource-schema";
 const Schema = mongoose.Schema;
 
 const roomSchema = new Schema({
-  name: String,
-  userId: Number,
-  type: String,
-  capacity: Number,
+  _id: {
+    type: Schema.Types.ObjectId,
+    auto: true
+  },
+  name: { type: String },
+  userId: { type: String },
+  type: { type: String },
   location: { type: LocationSchema },
   resources: { type: [ResourceSchema] },
-  numberOfSeats: Number,
+  numberOfSeats: { type: Number },
+}, {
+  timestamps: true,
 });
 
-const RoomSchema = mongoose.model("Room", roomSchema);
+const RoomModel = mongoose.model("Room", roomSchema);
 
-export { RoomSchema };
+export { RoomModel };
