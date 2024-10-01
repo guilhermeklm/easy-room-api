@@ -49,14 +49,18 @@ export class UserController {
       res.setHeader('Authorization', `Bearer ${token}`);
       res.status(200).json({
         status: "success",
-        message: "Login realizado com sucesso!"
+        message: "Login realizado com sucesso!",
+        data: {
+          name: user.name,
+          email: user.email
+        }
       });
 
     } catch (error) {
       if (error instanceof Error) {
-        res.json(error.message)
+        res.status(401).json(error.message)
       } else {
-        res.json(error)
+        res.status(401).json(error)
       }
     }
   }

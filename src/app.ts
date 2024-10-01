@@ -6,7 +6,11 @@ import { userRoute } from "./application/routers/user-route";
 
 const app = express();
 
-app.use(cors());
+const corsOptions = {
+  exposedHeaders: 'Authorization',
+};
+
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
