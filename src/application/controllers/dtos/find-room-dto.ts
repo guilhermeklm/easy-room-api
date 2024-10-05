@@ -2,11 +2,20 @@ export interface FindRoom {
   roomId: string;
   name: string;
   type: string;
-  location: 
+  location: LocationDTO
+  resources: ResourceDTO[]
+  numberOfSeats: number
 }
 
-export interface Location {
+export interface LocationDTO {
   address: string;
   floor: number;
-  roomLabel: 
+  roomLabel: string;
+  areaDescription?: string;
+  sector?: string;
+}
+
+export interface ResourceDTO {
+  name: string;
+  description: string;
 }

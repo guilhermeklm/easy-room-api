@@ -42,7 +42,7 @@ export class RoomController {
     try {
       const userId = req.get("x-user-id")
       const rooms = await this.findRoom.list(userId)
-      res.status(201).json({status: "success", data: rooms});
+      res.status(200).json({status: "success", data: rooms});
     } catch (error) { 
       if (error instanceof Error) {
         res.status(500).json(error.message);
