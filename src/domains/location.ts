@@ -1,21 +1,21 @@
 export class Location {
   private _address: string;
   private _floor: number;
-  private _roomNumber?: string;
+  private _roomLabel?: string;
   private _areaDescription?: string;
   private _sector?: string;
 
   constructor(
     address: string,
     floor: number,
-    roomNumber?: string,
+    roomLabel?: string,
     areaDescription?: string,
     sector?: string
   ) {
     this._address = address;
     this._floor = floor;
     this._sector = sector;
-    this._roomNumber = roomNumber;
+    this._roomLabel = roomLabel;
     this._areaDescription = areaDescription;
   }
 
@@ -27,8 +27,8 @@ export class Location {
     return this._floor;
   }
 
-  get roomNumber(): string | undefined {
-    return this._roomNumber;
+  get roomLabel(): string | undefined {
+    return this._roomLabel;
   }
 
   get areaDescription(): string | undefined {

@@ -2,15 +2,19 @@ import { Request, Response } from "express";
 import { ApiResponse } from "./dtos/apiResponse";
 import { CreateRoom } from "../../usecases/create-room";
 import { CreateRoomDTO } from "./dtos/create-room-dto";
+import { FindRoom } from "../../usecases/find-room";
 
 export class RoomController {
 
   private createRoom: CreateRoom;
+  private findRoom: FindRoom
 
   constructor(
+    findRoom: FindRoom,
     createRoom: CreateRoom
   ) {
     this.createRoom = createRoom
+    this.findRoom = findRoom
   }
 
   public async create(req: Request, res: Response) {
@@ -34,21 +38,15 @@ export class RoomController {
     }
   }
 
-  public getRoom(req: Request, res: Response) {
+  public async getRooms(req: Request, res: Response) {
     try {
-      res.json(JSON.stringify(new ApiResponse(null)));
-    } catch (error) { }
-  }
-
-  public updateRoom(req: Request, res: Response) {
-    try {
-      res.json(JSON.stringify(new ApiResponse(null)));
-    } catch (error) { }
-  }
-
-  public editRoom(req: Request, res: Response) {
-    try {
-      res.json(JSON.stringify(new ApiResponse(null)));
-    } catch (error) { }
+      const userId = req.get("x-user-id")
+      const rooms = await this.findRoom.list(userId)
+      res.status(201).json({status: "success", data: rooms});
+    } catch (error) { 
+      if (error instanceof Error) {
+        res.status(500).json(error.message);
+      }
+    }
   }
 }

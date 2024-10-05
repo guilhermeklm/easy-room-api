@@ -27,7 +27,7 @@ Content-Type: application/json
 ###
 
 #CRIA SALA
-POST http://localhost:3000/api/v1/room HTTP/1.1
+POST http://localhost:3000/api/v1/rooms HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmYwNGQxYTVlY2ZmNzQ4ZTBjOWVkZmEiLCJpYXQiOjE3MjcwMjYyNjMsImV4cCI6MTcyNzAyODA2M30.u0FtyiHtK8M2Pp8ScK7seOvgWKI6xgSWKLdrE-L-QRo
 
@@ -38,6 +38,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmYwN
   "location": {
     "address": "R. Cel. Genuíno, 130 - Centro Histórico, Porto Alegre - RS",
     "floor": 1,
-    "roomNumber": "A"
+    "roomLabel": "A"
   }
 }
+
+###
+
+#Busca lista de salas
+GET http://localhost:3000/api/v1/rooms HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmYwNGQxYTVlY2ZmNzQ4ZTBjOWVkZmEiLCJpYXQiOjE3MjgwODg3MDMsImV4cCI6MTcyODA5MDUwM30.8mjLiyzUrZeuGSztx1X3ERiVDB-tQFWSmwIy3-PVWog

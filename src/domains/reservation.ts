@@ -1,26 +1,29 @@
 import { Room } from "./room";
 
 export class Reservation {
-  private room: Room;
-  private userId: number;
-  private startTime: Date;
-  private endTime: Date;
-  private status: string;
-  private reason?: string;
+  private _title: string;
+  private _room: Room;
+  private _userId: number;
+  private _startTime: Date;
+  private _endTime: Date;
+  private _status: string;
+  private _description?: string;
 
   constructor(
+    title: string,
     room: Room,
     userId: number,
     startTime: Date,
     endTime: Date,
     status: string,
-    reason?: string
+    description?: string
   ) {
-    this.room = room;
-    this.userId = userId;
-    this.startTime = startTime;
-    this.endTime = endTime;
-    this.status = status;
-    this.reason = reason;
+    this._title = title;
+    this._room = room;
+    this._userId = userId;
+    this._startTime = startTime;
+    this._endTime = endTime;
+    this._status = status;
+    this._description = description;
   }
 }

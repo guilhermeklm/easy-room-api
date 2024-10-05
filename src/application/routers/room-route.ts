@@ -6,20 +6,12 @@ const authValidator = new AuthValidator();
 const roomRoute = express.Router();
 const roomController = ControllerFactory.getRoomControllerInstance();
 
-roomRoute.post("/api/v1/room", authValidator.validateSession, (req: Request, res: Response) =>
+roomRoute.post("/api/v1/rooms", authValidator.validateToken, (req: Request, res: Response) =>
   roomController.create(req, res)
 );
 
-roomRoute.get("/api/v1/room/:roomId", authValidator.validateSession, (req: Request, res: Response) =>
-  roomController.getRoom(req, res)
-);
-
-roomRoute.patch("/api/v1/room/:roomId", authValidator.validateSession, (req: Request, res: Response) =>
-  roomController.updateRoom(req, res)
-);
-
-roomRoute.put("/api/v1/room/:roomId", authValidator.validateSession, (req: Request, res: Response) =>
-  roomController.editRoom(req, res)
+roomRoute.get("/api/v1/rooms", authValidator.validateToken, (req: Request, res: Response) =>
+  roomController.getRooms(req, res)
 );
 
 export { roomRoute };

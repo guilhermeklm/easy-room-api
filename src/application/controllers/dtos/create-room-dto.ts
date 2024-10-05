@@ -16,7 +16,7 @@ export interface ResourceDTO {
 export interface LocationDTO {
   address: string;
   floor: number;
-  roomNumber?: string;
+  roomLabel?: string;
   areaDescription?: string;
   sector?: string;
 }

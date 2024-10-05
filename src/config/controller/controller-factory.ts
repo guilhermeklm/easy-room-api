@@ -6,7 +6,8 @@ import { UseCaseFactory } from "../useCases/use-case-factory";
 export class ControllerFactory {
   public static getRoomControllerInstance(): RoomController {
     const createRoom = UseCaseFactory.getCreateRoomInstance();
-    return new RoomController(createRoom);
+    const findRoom = UseCaseFactory.getFindRoomInstance();
+    return new RoomController(findRoom, createRoom);
   }
 
   public static getUserControllerInstance(): UserController {

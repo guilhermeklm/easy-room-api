@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
 export class AuthValidator {
-  public async validateSession(req: Request, res: Response, next: NextFunction) {
+  public async validateToken(req: Request, res: Response, next: NextFunction) {
     try {
       const jwtToken = req.headers["authorization"];
       const jwtSecret = process.env.JWT_SECRET;
@@ -27,7 +27,7 @@ export class AuthValidator {
       });
     } catch (err) {
       if (err instanceof Error) {
-        res.status(500).json({
+        res.status(401).json({
           status: "error",
           messages: [err.message],
         });

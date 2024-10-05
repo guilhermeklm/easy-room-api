@@ -26,7 +26,7 @@ export class CreateRoom {
     const location = new Location(
       createRoomDTO.location.address,
       createRoomDTO.location.floor,
-      createRoomDTO.location.roomNumber,
+      createRoomDTO.location.roomLabel,
       createRoomDTO.location.areaDescription,
       createRoomDTO.location.sector
     );

@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const LocationSchema = new Schema({
   address: String,
   floor: Number,
-  roomNumber: String,
+  roomLabel: String,
   areaDescription: String,
   sector: String,
 },
