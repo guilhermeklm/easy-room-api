@@ -3,6 +3,7 @@ import cors from "cors";
 import { defaultRoute } from "./application/routers/default-route";
 import { roomRoute } from "./application/routers/room-route";
 import { userRoute } from "./application/routers/user-route";
+import { reservationRoute } from "./application/routers/reservation-route";
 
 const app = express();
 
@@ -17,5 +18,6 @@ app.use(express.json());
 app.use(defaultRoute);
 app.use(roomRoute);
 app.use(userRoute);
+app.use(reservationRoute)
 
 export default app;

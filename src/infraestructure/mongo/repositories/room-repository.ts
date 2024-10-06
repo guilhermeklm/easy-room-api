@@ -29,6 +29,37 @@ export class RoomRepository {
     });
   }
 
+  public async findRoomById(roomId: string, userId: string): Promise<Room> {
+    const doc = await RoomModel.findOne({
+      _id: roomId,
+      userId: userId
+    })
+
+    if (!doc) {
+      return null
+    }
+
+    const resources: Resource[] = doc.resources ? doc.resources.map((resource) => {
+      return new Resource(resource.name, resource.description)
+    }) : [];
+
+    return Promise.resolve(new Room(
+      doc._id.toString(),
+      doc.userId,
+      doc.name,
+      doc.type,
+      new Location(
+        doc.location.address,
+        doc.location.floor,
+        doc.location.roomLabel,
+        doc.location.areaDescription,
+        doc.location.sector,
+      ),
+      resources,
+      doc.numberOfSeats
+    ))
+  }
+
   public async findRoomsByUserId(userId: string): Promise<Room[]> {
     let rooms: Room[] = []
     const doc = await RoomModel.find({
@@ -45,18 +76,18 @@ export class RoomRepository {
       }) : [];
 
       rooms.push(new Room(
-        room.id, 
-        userId, 
-        room.name, 
-        room.type, 
+        room.id,
+        userId,
+        room.name,
+        room.type,
         new Location(
           room.location.address,
           room.location.floor,
           room.location.roomLabel,
           room.location.areaDescription,
           room.location.sector
-        ), 
-        resources, 
+        ),
+        resources,
         room.numberOfSeats
       ))
     })
