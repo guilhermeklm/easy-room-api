@@ -17,6 +17,7 @@ export class RoomController {
     this.findRoom = findRoom
   }
 
+  // TODO - SALA NAO TEM USUARIO
   public async create(req: Request, res: Response) {
     try {
       const body = req.body
@@ -38,6 +39,7 @@ export class RoomController {
     }
   }
 
+  // TODO - SALA NAO TEM USUARIO
   public async getRooms(req: Request, res: Response) {
     try {
       const userId = req.get("x-user-id")
