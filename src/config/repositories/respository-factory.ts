@@ -32,7 +32,8 @@ export class RepositoryFactory {
 
   public static getReservationRepositoryInstance(): ReservationRepository {
     if (!this.reservationRepository) {
-      this.reservationRepository = new ReservationRepository();
+      const roomRepository = this.getRoomRepositoryInstance()
+      this.reservationRepository = new ReservationRepository(roomRepository);
     }
 
     return this.reservationRepository;

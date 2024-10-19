@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { ApiResponse } from "./dtos/apiResponse";
 import { CreateRoom } from "../../usecases/create-room";
 import { CreateRoomDTO } from "./dtos/create-room-dto";
 import { FindRoom } from "../../usecases/find-room";
@@ -17,11 +16,9 @@ export class RoomController {
     this.findRoom = findRoom
   }
 
-  // TODO - SALA NAO TEM USUARIO
   public async create(req: Request, res: Response) {
     try {
       const body = req.body
-      const userId = req.get("x-user-id")
       const dto: CreateRoomDTO = {
         name: body.name,
         type: body.type,
@@ -29,7 +26,7 @@ export class RoomController {
         location: body.location,
         additionalResources: body.additionalResources,
       }
-      const room = await this.createRoom.create(dto, userId)
+      const room = await this.createRoom.create(dto)
 
       res.status(201).json({status: "success", data: room});
     } catch (error) {
@@ -39,11 +36,9 @@ export class RoomController {
     }
   }
 
-  // TODO - SALA NAO TEM USUARIO
   public async getRooms(req: Request, res: Response) {
     try {
-      const userId = req.get("x-user-id")
-      const rooms = await this.findRoom.list(userId)
+      const rooms = await this.findRoom.list()
       res.status(200).json({status: "success", data: rooms});
     } catch (error) { 
       if (error instanceof Error) {

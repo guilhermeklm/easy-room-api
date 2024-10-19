@@ -16,7 +16,7 @@ export class CreateReservation {
   }
 
   public async create(dto: CreateReservationDTO, userId: string): Promise<void> {
-    const room = await this.roomRepository.findRoomById(dto.roomId, userId)
+    const room = await this.roomRepository.findRoomById(dto.roomId)
 
     if(!room) {
       throw new Error("sala inexistente")

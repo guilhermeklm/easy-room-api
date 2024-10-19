@@ -1,7 +1,9 @@
 import app from "./app";
 import { connect } from "mongoose";
 import dotenv from "dotenv";
+import moment from "moment-timezone";
 dotenv.config();
+moment.tz.setDefault("America/Sao_Paulo")
 
 const run = async () => {
   await connect(`${process.env.MONGO_DB}`);

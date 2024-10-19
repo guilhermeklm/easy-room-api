@@ -4,6 +4,7 @@ import { RepositoryFactory } from "../repositories/respository-factory";
 import { CreateRoom } from "../../usecases/create-room";
 import { FindRoom } from "../../usecases/find-room";
 import { CreateReservation } from "../../usecases/create-reservation";
+import { FindReservation } from "../../usecases/find-reservation";
 
 export class UseCaseFactory {
 
@@ -12,6 +13,7 @@ export class UseCaseFactory {
   private static createUser: CreateUser
   private static userLogin: UserLogin
   private static createReservation: CreateReservation
+  private static findReservation: FindReservation
 
   public static getCreateRoomInstance() {
     if (!this.createRoom) {
@@ -58,5 +60,14 @@ export class UseCaseFactory {
     }
 
     return this.createReservation
+  }
+
+  public static getFindReservationsUseCase() {
+    if (!this.findReservation) {
+      const reservationRepository = RepositoryFactory.getReservationRepositoryInstance()
+      this.findReservation = new FindReservation(reservationRepository)
+    }
+
+    return this.findReservation
   }
 }

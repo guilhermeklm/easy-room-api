@@ -9,7 +9,7 @@ export class FindRoom {
     this.roomRepository = roomRepository
   }
 
-  public async list(userId: string): Promise<Room[]> {
-    return await this.roomRepository.findRoomsByUserId(userId)
+  public async list(): Promise<Room[]> {
+    return await this.roomRepository.findRoomsByUserId()
   }
 }

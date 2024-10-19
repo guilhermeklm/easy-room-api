@@ -31,7 +31,8 @@ export class ControllerFactory {
   public static getReservationControllerInstance(): ReservationController {
     if (!this.reservationController) {
       const createReservationUseCase = UseCaseFactory.getCreateReservationInstance()
-      this.reservationController = new ReservationController(createReservationUseCase)
+      const findReservation = UseCaseFactory.getFindReservationsUseCase()
+      this.reservationController = new ReservationController(createReservationUseCase, findReservation)
     }
 
     return this.reservationController

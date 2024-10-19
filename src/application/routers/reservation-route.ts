@@ -10,8 +10,8 @@ reservationRoute.post("/api/v1/reservations", authValidator.validateToken, (req:
   reservationController.create(req, res)
 );
 
-// roomRoute.get("/api/v1/reservations", authValidator.validateToken, (req: Request, res: Response) =>
-//   reservationController.getRooms(req, res)
-// );
+reservationRoute.get("/api/v1/history/reservations", authValidator.validateToken, (req: Request, res: Response) =>
+  reservationController.getOldReservations(req, res)
+);
 
 export { reservationRoute };

@@ -15,7 +15,6 @@ export class RoomRepository {
 
     await RoomModel.create({
       name: room.name,
-      userId: room.userId,
       type: room.type,
       location: {
         address: room.location.address,
@@ -29,10 +28,9 @@ export class RoomRepository {
     });
   }
 
-  public async findRoomById(roomId: string, userId: string): Promise<Room> {
+  public async findRoomById(roomId: string): Promise<Room> {
     const doc = await RoomModel.findOne({
       _id: roomId,
-      userId: userId
     })
 
     if (!doc) {
@@ -45,7 +43,6 @@ export class RoomRepository {
 
     return Promise.resolve(new Room(
       doc._id.toString(),
-      doc.userId,
       doc.name,
       doc.type,
       new Location(
@@ -60,11 +57,9 @@ export class RoomRepository {
     ))
   }
 
-  public async findRoomsByUserId(userId: string): Promise<Room[]> {
+  public async findRoomsByUserId(): Promise<Room[]> {
     let rooms: Room[] = []
-    const doc = await RoomModel.find({
-      userId: userId
-    })
+    const doc = await RoomModel.find()
 
     if (!doc) {
       return rooms
@@ -77,7 +72,6 @@ export class RoomRepository {
 
       rooms.push(new Room(
         room.id,
-        userId,
         room.name,
         room.type,
         new Location(

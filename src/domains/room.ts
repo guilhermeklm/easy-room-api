@@ -8,7 +8,6 @@ export enum TypeRoom {
 
 export class Room {
   private _roomId: string;
-  private _userId: string;
   private _name: string;
   private _type: TypeRoom;
   private _location: Location;
@@ -17,7 +16,6 @@ export class Room {
 
   constructor(
     roomId: string,
-    userId: string,
     name: string,
     type: string,
     location: Location,
@@ -25,7 +23,6 @@ export class Room {
     numberOfSeats: number
   ) {
     this._roomId = roomId;
-    this._userId = userId;
     this._name = name;
     this._type = TypeRoom[type as keyof typeof TypeRoom];
     this._location = location;
@@ -58,10 +55,6 @@ export class Room {
 
   get roomId(): string {
     return this._roomId;
-  }
-
-  get userId(): string {
-    return this._userId;
   }
 
   get name(): string {

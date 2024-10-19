@@ -48,3 +48,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmYwN
 GET http://localhost:3000/api/v1/rooms HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmYwNGQxYTVlY2ZmNzQ4ZTBjOWVkZmEiLCJpYXQiOjE3MjgwODg3MDMsImV4cCI6MTcyODA5MDUwM30.8mjLiyzUrZeuGSztx1X3ERiVDB-tQFWSmwIy3-PVWog
+
+###
+
+#Busca reservas antigas
+GET http://localhost:3000/api/v1/reservations HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmYwNGQxYTVlY2ZmNzQ4ZTBjOWVkZmEiLCJpYXQiOjE3Mjg1OTA5MjMsImV4cCI6MTcyODU5MjcyM30.qy5YQh1aMEF7vNqzZkZwD2Xt7wny1Zje2wD_bntMgMs

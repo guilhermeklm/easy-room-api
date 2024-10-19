@@ -18,7 +18,7 @@ export class CreateRoom {
     this.resourceRepository = resourceRepository;
   }
 
-  public async create(createRoomDTO: CreateRoomDTO, userId: string): Promise<Room> {
+  public async create(createRoomDTO: CreateRoomDTO): Promise<Room> {
     if(!createRoomDTO.location) {
       throw new Error("Local da sala é obrigatorio")
     }
@@ -44,7 +44,6 @@ export class CreateRoom {
     // dto para dominio
     const room = new Room(
       null,
-      userId,
       createRoomDTO.name,
       createRoomDTO.type,
       location,

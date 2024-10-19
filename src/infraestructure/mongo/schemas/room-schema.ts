@@ -10,7 +10,6 @@ const roomSchema = new Schema({
     auto: true
   },
   name: { type: String },
-  userId: { type: String },
   type: { type: String },
   location: { type: LocationSchema },
   resources: { type: [ResourceSchema] },
