@@ -45,8 +45,6 @@ export class Reservation {
       throw new Error("Data e hora final não podem ser vazias");
     }
 
-    console.log(this._startDateTime)
-    console.log(this._endDateTime)
     if (this._startDateTime >= this._endDateTime) {
       throw new Error("Data e hora de início não podem ser maior ou igual à data e hora de término");
     }

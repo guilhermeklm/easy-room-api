@@ -53,7 +53,6 @@ export class ReservationController {
     try {
       const reservations = await this.findReservation.listAllReservation()
       const dto = ReservationConverter.toFindReservationDto(reservations)
-      console.log(dto)
       res.status(200).json(dto);
     } catch (error) {
       if (error instanceof Error) {
