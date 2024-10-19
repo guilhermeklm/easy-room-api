@@ -1,4 +1,5 @@
 export interface FindReservationDTO {
+  id: string
   title: string
   active: boolean
   description: string

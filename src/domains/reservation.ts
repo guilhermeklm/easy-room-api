@@ -1,6 +1,7 @@
 import { Room } from "./room";
 
 export class Reservation {
+  private _id: string;
   private _title: string;
   private _room: Room;
   private _startDateTime: Date;
@@ -9,6 +10,7 @@ export class Reservation {
   private _description?: string;
 
   constructor(
+    id: string,
     title: string,
     room: Room,
     startDateTime: Date,
@@ -16,6 +18,7 @@ export class Reservation {
     active: boolean,
     description?: string
   ) {
+    this._id = id;
     this._title = title;
     this._room = room;
     this._startDateTime = startDateTime;
@@ -42,6 +45,8 @@ export class Reservation {
       throw new Error("Data e hora final não podem ser vazias");
     }
 
+    console.log(this._startDateTime)
+    console.log(this._endDateTime)
     if (this._startDateTime >= this._endDateTime) {
       throw new Error("Data e hora de início não podem ser maior ou igual à data e hora de término");
     }
@@ -53,6 +58,10 @@ export class Reservation {
     if (this._description && this._description.trim() === "") {
       throw new Error("Descrição não pode ser uma string vazia");
     }
+  }
+
+  public get id(): string {
+    return this._id;
   }
 
   public get title(): string {

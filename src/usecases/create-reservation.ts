@@ -23,6 +23,7 @@ export class CreateReservation {
     }
 
     const reservation: Reservation = new Reservation(
+      null,
       dto.title,
       room,
       new Date(dto.startDateTime),

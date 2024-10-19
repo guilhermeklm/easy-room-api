@@ -14,4 +14,8 @@ reservationRoute.get("/api/v1/history/reservations", authValidator.validateToken
   reservationController.getOldReservations(req, res)
 );
 
+reservationRoute.get("/api/v1/reservations", authValidator.validateToken, (req: Request, res: Response) =>
+  reservationController.getNewReservations(req, res)
+);
+
 export { reservationRoute };

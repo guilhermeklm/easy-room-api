@@ -9,11 +9,12 @@ export class ReservationConverter {
     for (const reservation of reservations) {
       dto.push(
         {
+          id: reservation.id,
           active: reservation.active,
           title: reservation.title,
           description: reservation.description,
-          startDateTime: moment(reservation.startDateTime).format("MM-DD-yyyy, HH:mm").toString(),
-          endDateTime: moment(reservation.endDateTime).format("MM-DD-yyyy, HH:mm").toString(),
+          startDateTime: moment(reservation.startDateTime).format("yyyy-MM-DD HH:mm").toString(),
+          endDateTime: moment(reservation.endDateTime).format("yyyy-MM-DD HH:mm").toString(),
           roomName: reservation.room.name,
           locationAddress: reservation.room.location.address
         }

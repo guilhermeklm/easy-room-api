@@ -15,4 +15,9 @@ export class FindReservation {
     const reservations = await this.reservationRepository.findOldReservations()
     return Promise.resolve(reservations)
   }
+
+  public async listAllReservation(): Promise<Reservation[]> {
+    const reservations = await this.reservationRepository.listAllReservation()
+    return Promise.resolve(reservations)
+  }
 }

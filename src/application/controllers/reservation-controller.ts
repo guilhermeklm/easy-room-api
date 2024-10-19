@@ -48,4 +48,17 @@ export class ReservationController {
       }
     }
   }
+
+  public async getNewReservations(_req: Request, res: Response) {
+    try {
+      const reservations = await this.findReservation.listAllReservation()
+      const dto = ReservationConverter.toFindReservationDto(reservations)
+      console.log(dto)
+      res.status(200).json(dto);
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(500).json({message: error.message});
+      }
+    }
+  }
 }
