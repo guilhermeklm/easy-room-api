@@ -26,6 +26,20 @@ export class ReservationRepository {
     return Promise.resolve()
   }
 
+  public async hasConflictingReservation(newReservation: Reservation): Promise<boolean> {
+    const conflictingReservation = await ReservationModel.findOne({
+      roomId: newReservation.room.roomId,
+      $or: [
+        {
+          startDateTime: { $lt: newReservation.endDateTime },
+          endDateTime: { $gt: newReservation.startDateTime }
+        }
+      ]
+    });
+
+    return conflictingReservation !== null;
+  }
+
   public async listAllReservation(): Promise<Reservation[]> {
     const reservations = await ReservationModel.find().exec();
 

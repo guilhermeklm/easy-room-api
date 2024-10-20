@@ -31,9 +31,17 @@ export class CreateReservation {
       true,
       dto.description
     )
+    this.validate(reservation)
 
     await this.reservationRepository.save(reservation, userId)
 
     return Promise.resolve()
+  }
+
+  private validate(reservation: Reservation) {
+    const hasConflictingReservation = this.reservationRepository.hasConflictingReservation(reservation)
+    if(hasConflictingReservation) {
+      throw new Error("Sala indisponivel para reserva neste horario")
+    }
   }
 }
