@@ -32,7 +32,14 @@ export class ControllerFactory {
     if (!this.reservationController) {
       const createReservationUseCase = UseCaseFactory.getCreateReservationInstance()
       const findReservation = UseCaseFactory.getFindReservationsUseCase()
-      this.reservationController = new ReservationController(createReservationUseCase, findReservation)
+      const editReservation = UseCaseFactory.getEditReservationUseCase()
+      const deleteReservation = UseCaseFactory.getDeleteReservationUseCase()
+      this.reservationController = new ReservationController(
+        createReservationUseCase,
+        findReservation,
+        editReservation,
+        deleteReservation,
+      )
     }
 
     return this.reservationController

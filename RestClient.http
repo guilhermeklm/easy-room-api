@@ -55,3 +55,25 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmYwN
 GET http://localhost:3000/api/v1/reservations HTTP/1.1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmYwNGQxYTVlY2ZmNzQ4ZTBjOWVkZmEiLCJpYXQiOjE3Mjg1OTA5MjMsImV4cCI6MTcyODU5MjcyM30.qy5YQh1aMEF7vNqzZkZwD2Xt7wny1Zje2wD_bntMgMs
+
+###
+
+#EDITA RESERVA
+PUT http://localhost:3000/api/v1/reservations/671adb7817a073e1dfc4ca53 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmYwNGQxYTVlY2ZmNzQ4ZTBjOWVkZmEiLCJpYXQiOjE3MzAxNjA1NDcsImV4cCI6MTczMDE2MjM0N30.Lvc2KlOmZTYiFfHAIn3DgQr8khRbwNzgzcvGwEJ1CCs
+
+{
+  "title": "Titulo atualizado",
+  "roomId": "66f050257a7a4465ada95615",
+  "startDateTime": "2024-10-30T17:00:00.000+00:00",
+  "endDateTime": "2024-10-30T17:30:00.000+00:00",
+  "description": "Editei a descricao"
+}
+
+###
+
+#Deleta reserva
+DELETE http://localhost:3000/api/v1/reservations/671adb7817a073e1dfc4ca53 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NmYwNGQxYTVlY2ZmNzQ4ZTBjOWVkZmEiLCJpYXQiOjE3MzAxNjIxMjcsImV4cCI6MTczMDE2MzkyN30.D_wtNtYEpOHP5R8kzol-iOOCePlK_vmsFRivLbO0aOM

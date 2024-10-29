@@ -1,4 +1,4 @@
-import { Room } from "src/domains/room";
+import { Room } from "../domains/room";
 import { RoomRepository } from "../infraestructure/mongo/repositories/room-repository";
 
 export class FindRoom {

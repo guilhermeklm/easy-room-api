@@ -28,20 +28,27 @@ export class CreateReservation {
       room,
       new Date(dto.startDateTime),
       new Date(dto.endDateTime),
-      true,
       dto.description
     )
-    this.validate(reservation)
+    await this.validate(reservation)
 
     await this.reservationRepository.save(reservation, userId)
 
     return Promise.resolve()
   }
 
-  private validate(reservation: Reservation) {
-    const hasConflictingReservation = this.reservationRepository.hasConflictingReservation(reservation)
+  private async validate(reservation: Reservation) {
+    const hasConflictingReservation = await this.reservationRepository.hasConflictingReservation(reservation)
     if(hasConflictingReservation) {
-      throw new Error("Sala indisponivel para reserva neste horario")
+      throw new Error("Conflito entre agendas")
     }
   }
 }
+
+// editar reserva ok (revisar erros de dominio, estao quebrando e nao mostra no api response)
+// excluir reserva ok
+// recorrencia
+// ordenacao das salas no historicos
+// adicionar elementos na reserva
+// oq é o elemento e quem é o responsavel, pra preparar a sala
+// email da propria instituicao

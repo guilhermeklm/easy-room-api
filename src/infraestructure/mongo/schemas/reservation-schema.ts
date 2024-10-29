@@ -8,7 +8,6 @@ const reservationSchema = new Schema({
     auto: true
   },
   title: { type: String },
-  active: { type: Boolean },
   roomId: { type: String },
   userId: { type: String },
   startDateTime: { type: Date },

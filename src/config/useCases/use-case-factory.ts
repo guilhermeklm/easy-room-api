@@ -5,6 +5,8 @@ import { CreateRoom } from "../../usecases/create-room";
 import { FindRoom } from "../../usecases/find-room";
 import { CreateReservation } from "../../usecases/create-reservation";
 import { FindReservation } from "../../usecases/find-reservation";
+import { EditReservation } from "../../usecases/edit-reservation";
+import { DeleteReservation } from "../../usecases/delete-reservation";
 
 export class UseCaseFactory {
 
@@ -14,6 +16,8 @@ export class UseCaseFactory {
   private static userLogin: UserLogin
   private static createReservation: CreateReservation
   private static findReservation: FindReservation
+  private static editReservation: EditReservation
+  private static deleteReservation: DeleteReservation
 
   public static getCreateRoomInstance() {
     if (!this.createRoom) {
@@ -69,5 +73,24 @@ export class UseCaseFactory {
     }
 
     return this.findReservation
+  }
+
+  public static getEditReservationUseCase() {
+    if (!this.editReservation) {
+      const reservationRepository = RepositoryFactory.getReservationRepositoryInstance()
+      const roomRepository = RepositoryFactory.getRoomRepositoryInstance()
+      this.editReservation = new EditReservation(reservationRepository, roomRepository)
+    }
+
+    return this.editReservation
+  }
+
+  public static getDeleteReservationUseCase() {
+    if (!this.deleteReservation) {
+      const reservationRepository = RepositoryFactory.getReservationRepositoryInstance()
+      this.deleteReservation = new DeleteReservation(reservationRepository)
+    }
+
+    return this.deleteReservation
   }
 }

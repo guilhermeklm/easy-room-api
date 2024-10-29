@@ -13,6 +13,50 @@ export class ReservationRepository {
     this.roomRepository = roomRepository
   }
 
+  public async update(reservation: Reservation, userId: string) {
+    await ReservationModel.updateOne({
+      _id: reservation.id,
+      userId: userId
+    },
+      {
+        title: reservation.title,
+        roomId: reservation.room.roomId,
+        startDateTime: reservation.startDateTime,
+        endDateTime: reservation.endDateTime,
+        description: reservation.description,
+        updatedAt: moment()
+      }
+    )
+  }
+
+  public async deleteByIdAndUserId(id: string, userId: string) {
+    await ReservationModel.deleteOne({
+      _id: id,
+      userId: userId
+    })
+  }
+
+  public async findByIdAndUserId(id: string, userId: string): Promise<Reservation> {
+    const doc = await ReservationModel.findOne({
+      _id: id,
+      userId: userId
+    })
+
+    if (doc) {
+      const room = await this.roomRepository.findRoomById(doc.roomId);
+      return new Reservation(
+        id,
+        doc.title,
+        room,
+        doc.startDateTime,
+        doc.endDateTime,
+        doc.description
+      )
+    }
+
+    return Promise.resolve(null)
+  }
+
   public async save(reservation: Reservation, userId: string): Promise<void> {
     await ReservationModel.create({
       title: reservation.title,
@@ -20,7 +64,6 @@ export class ReservationRepository {
       userId: userId,
       startDateTime: reservation.startDateTime,
       endDateTime: reservation.endDateTime,
-      active: reservation.active,
       description: reservation.description
     })
     return Promise.resolve()
@@ -53,7 +96,6 @@ export class ReservationRepository {
         room,
         doc.startDateTime,
         doc.endDateTime,
-        doc.active,
         doc.description
       );
       mappedReservations.push(reservation);
@@ -111,7 +153,6 @@ export class ReservationRepository {
         room,
         doc.startDateTime,
         doc.endDateTime,
-        doc.active,
         doc.description
       );
       mappedReservations.push(reservation);

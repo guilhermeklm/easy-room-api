@@ -10,12 +10,20 @@ reservationRoute.post("/api/v1/reservations", authValidator.validateToken, (req:
   reservationController.create(req, res)
 );
 
+reservationRoute.put("/api/v1/reservations/:reservationId", authValidator.validateToken, (req: Request, res: Response) =>
+  reservationController.putReservation(req, res)
+);
+
 reservationRoute.get("/api/v1/history/reservations", authValidator.validateToken, (req: Request, res: Response) =>
   reservationController.getOldReservations(req, res)
 );
 
 reservationRoute.get("/api/v1/reservations", authValidator.validateToken, (req: Request, res: Response) =>
   reservationController.getNewReservations(req, res)
+);
+
+reservationRoute.delete("/api/v1/reservations/:reservationId", authValidator.validateToken, (req: Request, res: Response) =>
+  reservationController.delReservation(req, res)
 );
 
 export { reservationRoute };

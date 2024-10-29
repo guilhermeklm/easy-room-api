@@ -31,17 +31,14 @@ export class CreateRoom {
       createRoomDTO.location.sector
     );
     
-    // buscar recursos basicos das salas para adicionar no dominio
     let resources = this.resourceRepository.getBasicResources()
     
-    // adicionar recursos adicionais na lista de recursos basicos
     if(createRoomDTO.additionalResources && createRoomDTO.additionalResources.length > 0) {
       createRoomDTO.additionalResources.forEach((additionalResource: ResourceDTO) => {
         resources.push(new Resource(additionalResource.name, additionalResource.description))
       })
     }
 
-    // dto para dominio
     const room = new Room(
       null,
       createRoomDTO.name,
@@ -51,10 +48,8 @@ export class CreateRoom {
       createRoomDTO.numberOfSeats
     )
 
-    // salvar dominio banco
     await this.roomRepository.save(room);
 
-    // retorna room para a tela
     return Promise.resolve(room)
   }
 }
