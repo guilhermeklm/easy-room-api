@@ -35,7 +35,9 @@ export class ReservationController {
         roomId: body.roomId,
         startDateTime: body.startDateTime,
         endDateTime: body.endDateTime,
-        description: body.description
+        description: body.description,
+        isRecurring: body.isRecurring,
+        recurrence: body.recurrence
       }
       await this.createReservation.create(dto, userId)
       res.sendStatus(201);

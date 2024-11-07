@@ -69,6 +69,21 @@ export class ReservationRepository {
     return Promise.resolve()
   }
 
+  public async saveAll(reservations: Reservation[], userId: string): Promise<void> {
+    for (const element of reservations) {
+      await ReservationModel.create({
+        title: element.title,
+        roomId: element.room.roomId,
+        userId: userId,
+        startDateTime: element.startDateTime,
+        endDateTime: element.endDateTime,
+        description: element.description,
+        isRecurringInstance: element.isRecurringInstance
+      })
+    }
+    return Promise.resolve()
+  }
+
   public async hasConflictingReservation(newReservation: Reservation): Promise<boolean> {
     const conflictingReservation = await ReservationModel.findOne({
       roomId: newReservation.room.roomId,

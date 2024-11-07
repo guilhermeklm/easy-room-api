@@ -13,6 +13,7 @@ const reservationSchema = new Schema({
   startDateTime: { type: Date },
   endDateTime: { type: Date },
   description: { type: String },
+  isRecurringInstance: { type: Boolean }
 }, {
   timestamps: true,
 });

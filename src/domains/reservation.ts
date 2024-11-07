@@ -6,7 +6,8 @@ export class Reservation {
   private _room: Room;
   private _startDateTime: Date;
   private _endDateTime: Date;
-  private _description?: string;
+  private _description: string;
+  private _isRecurringInstance?: boolean
 
   constructor(
     id: string,
@@ -14,7 +15,8 @@ export class Reservation {
     room: Room,
     startDateTime: string | Date,
     endDateTime: string | Date,
-    description?: string
+    description: string,
+    isRecurringInstance?: boolean,
   ) {
     this._id = id;
     this._title = title;
@@ -22,6 +24,7 @@ export class Reservation {
     this._startDateTime = this.buildDate(startDateTime);
     this._endDateTime = this.buildDate(endDateTime);
     this._description = description;
+    this._isRecurringInstance = isRecurringInstance ? isRecurringInstance : false
     this.validate();
   }
 
@@ -48,4 +51,5 @@ export class Reservation {
   public get startDateTime(): Date { return this._startDateTime; }
   public get endDateTime(): Date { return this._endDateTime; }
   public get description(): string | undefined { return this._description; }
+  public get isRecurringInstance(): boolean { return this._isRecurringInstance }
 }
