@@ -44,7 +44,7 @@ export class CreateReservation {
       while (start.isBefore(recurrenceEnd)) {
         const dayOfWeek = start.day();
 
-        if (dto.recurrence.selectedWeekdays.includes(dayOfWeek)) {
+        if (dto.recurrence.selectedWeekdays.includes(dayOfWeek) && !start.isSame(reservationBase.startDateTime, 'day')) {
           reservations.push(new Reservation(
             null,
             reservationBase.title,
