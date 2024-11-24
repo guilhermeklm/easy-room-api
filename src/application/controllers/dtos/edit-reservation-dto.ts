@@ -5,4 +5,5 @@ export interface EditReservationDTO {
   startDateTime: string,
   endDateTime: string,
   description: string
+  applyToAll: boolean
 }

@@ -1,3 +1,4 @@
+import moment from "moment";
 import { Room } from "./room";
 
 export class Reservation {
@@ -7,7 +8,8 @@ export class Reservation {
   private _startDateTime: Date;
   private _endDateTime: Date;
   private _description: string;
-  private _isRecurringInstance?: boolean
+  private _isRecurring?: boolean;
+  private _recurrenceParentId?: string;
 
   constructor(
     id: string,
@@ -16,7 +18,8 @@ export class Reservation {
     startDateTime: string | Date,
     endDateTime: string | Date,
     description: string,
-    isRecurringInstance?: boolean,
+    isRecurring?: boolean,
+    recurrenceParentId?: string
   ) {
     this._id = id;
     this._title = title;
@@ -24,25 +27,33 @@ export class Reservation {
     this._startDateTime = this.buildDate(startDateTime);
     this._endDateTime = this.buildDate(endDateTime);
     this._description = description;
-    this._isRecurringInstance = isRecurringInstance ? isRecurringInstance : false
+    this._isRecurring = isRecurring ? isRecurring : false;
+    this._recurrenceParentId = recurrenceParentId;
     this.validate();
   }
 
+  public update(newReservation: Reservation) {
+    this._title = newReservation.title;
+    this._room = newReservation.room;
+    this._startDateTime = this.buildDate(newReservation.startDateTime);
+    this._endDateTime = this.buildDate(newReservation.endDateTime);
+    this._description = newReservation.description;
+  }
+
   private buildDate(dateString: string | Date): Date {
-    const parsedDate = new Date(dateString);
-    if (isNaN(parsedDate.getTime())) {
-      throw new Error(`"${dateString}" não é uma data válida.`);
-    }
-    return parsedDate;
+    return moment(dateString, 'DD-MM-YYYY, HH:mm').toDate();
   }
 
   private validate() {
-    if (!this._title) throw new Error("Título não pode ser vazio");
-    if (!this._room) throw new Error("Sala não pode ser vazia");
-    if (!this._startDateTime) throw new Error("Data e hora inicial não podem ser vazias");
-    if (!this._endDateTime) throw new Error("Data e hora final não podem ser vazias");
-    if (this._startDateTime >= this._endDateTime) throw new Error("Data e hora de início não podem ser maior ou igual à data e hora de término");
-    if (this._description && this._description.trim() === "") throw new Error("Descrição não pode ser uma string vazia");
+    if (!this.title) throw new Error("Título não pode ser vazio");
+    if (!this.room) throw new Error("Sala não pode ser vazia");
+    if (!this.startDateTime) throw new Error("Data e hora inicial não podem ser vazias");
+    if (!this.isValidDate(this.startDateTime)) throw new Error(`Data hora inicial não é uma data válida.`);
+    if (!this.isValidDate(this.endDateTime)) throw new Error(`Data hora final não é uma data válida.`);
+    if (!this.endDateTime) throw new Error("Data e hora final não podem ser vazias");
+    if (this.startDateTime >= this.endDateTime) throw new Error("Data e hora de início não podem ser maior ou igual à data e hora de término");
+    if (this.description && this.description.trim() === "") throw new Error("Descrição não pode ser uma string vazia");
+    if (this.isRecurring && !this.recurrenceParentId) throw new Error("Reservas recorrentes devem ter um ID de referência para a reserva original.");
   }
 
   public get id(): string { return this._id; }
@@ -51,5 +62,13 @@ export class Reservation {
   public get startDateTime(): Date { return this._startDateTime; }
   public get endDateTime(): Date { return this._endDateTime; }
   public get description(): string | undefined { return this._description; }
-  public get isRecurringInstance(): boolean { return this._isRecurringInstance }
+  public get isRecurring(): boolean { return this._isRecurring; }
+  public get recurrenceParentId(): string | undefined { return this._recurrenceParentId; }
+
+  public isValidDate(date: Date): boolean {
+    if (isNaN(date.getTime())) {
+      return false;
+    }
+    return true;
+  }
 }

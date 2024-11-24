@@ -29,42 +29,49 @@ export class CreateReservation {
       null,
       dto.title,
       room,
-      new Date(dto.startDateTime),
-      new Date(dto.endDateTime),
-      dto.description
+      dto.startDateTime,
+      dto.endDateTime,
+      dto.description,
+      false,
+      null
     )
 
-    reservations.push(reservationBase)
+    const reservationBaseId = await this.reservationRepository.save(reservationBase, userId)
 
-    if (dto.isRecurring) {
-      const start = moment(reservationBase.startDateTime, "MM-DD-YYYY, HH:mm");
-      const end = moment(reservationBase.endDateTime, "MM-DD-YYYY, HH:mm");
-      const recurrenceEnd = moment(dto.recurrence.endDate);
+    try {
+      if (dto.isRecurring) {
+        const start = moment(reservationBase.startDateTime, "DD-MM-YYYY, HH:mm");
+        const end = moment(reservationBase.endDateTime, "DD-MM-YYYY, HH:mm");
+        const recurrenceEnd = moment(dto.recurrence.endDate, 'DD-MM-YYYY');
 
-      while (start.isBefore(recurrenceEnd)) {
-        const dayOfWeek = start.day();
+        while (start.isBefore(recurrenceEnd)) {
+          const dayOfWeek = start.day();
 
-        if (dto.recurrence.selectedWeekdays.includes(dayOfWeek) && !start.isSame(reservationBase.startDateTime, 'day')) {
-          reservations.push(new Reservation(
-            null,
-            reservationBase.title,
-            reservationBase.room,
-            start.format(),
-            end.format(),
-            reservationBase.description,
-            true
-          ));
+          if (dto.recurrence.selectedWeekdays.includes(dayOfWeek) && !start.isSame(reservationBase.startDateTime, 'day')) {
+            reservations.push(new Reservation(
+              null,
+              reservationBase.title,
+              reservationBase.room,
+              moment(start, "DD-MM-YYYY, HH:mm").toDate(),
+              moment(end, "DD-MM-YYYY, HH:mm").toDate(),
+              reservationBase.description,
+              true,
+              reservationBaseId
+            ));
+          }
+
+          start.add(1, 'days');
+          end.add(1, 'days');
         }
-
-        start.add(1, 'days');
-        end.add(1, 'days');
       }
+
+      await this.validate(reservations)
+      await this.reservationRepository.saveAll(reservations, userId)
+
+    } catch (error) {
+      await this.reservationRepository.deleteByIdAndUserId(reservationBaseId, userId)
+      throw error
     }
-
-    await this.validate(reservations)
-
-    await this.reservationRepository.saveAll(reservations, userId)
-
     return Promise.resolve()
   }
 
@@ -78,10 +85,11 @@ export class CreateReservation {
   }
 }
 
-// editar reserva ok (api) (revisar erros de dominio, estao quebrando e nao mostra no api response)
-// excluir reserva ok (api)
-// recorrencia - ok
+// botar feature de editar todas as reservas criadas com recorrencia
 // ordenacao das salas no historicos
 // adicionar elementos na reserva
 // oq é o elemento e quem é o responsavel, pra preparar a sala
 // email da propria instituicao
+
+// pegar empresas q tenham o mesmo produto e ver a disponibilidade
+// dizer pq escolheu as tecnologias

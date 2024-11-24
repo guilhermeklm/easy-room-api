@@ -16,16 +16,31 @@ export class EditReservation {
   }
 
   public async execute(reservation: EditReservationDTO, userId: string) {
-    const newRoom = await this.roomRepository.findRoomById(reservation.roomId)
-    const reservationUpdated = new Reservation(
+    const currentReservation = await this.reservationRepository.findByIdAndUserId(reservation.id, userId);
+    if (!currentReservation) {
+      throw new Error("Reserva não encontrada ou não pertence ao usuário");
+    }
+
+    const newRoom = await this.roomRepository.findRoomById(reservation.roomId);
+    if (!newRoom) {
+      throw new Error("Sala não encontrada");
+    }
+
+    const newReservation = new Reservation(
       reservation.id,
       reservation.title,
       newRoom,
       reservation.startDateTime,
       reservation.endDateTime,
-      reservation.description
-    )
+      reservation.description,
+    );
 
-    await this.reservationRepository.update(reservationUpdated, userId)
+    currentReservation.update(newReservation)
+
+    if (reservation.applyToAll) {
+      await this.reservationRepository.updateReservationAndRecurrences(currentReservation, userId)
+    } else {
+      await this.reservationRepository.updateOne(currentReservation, userId);
+    }
   }
 }

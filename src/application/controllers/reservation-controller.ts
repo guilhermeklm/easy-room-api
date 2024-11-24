@@ -43,6 +43,7 @@ export class ReservationController {
       res.sendStatus(201);
     } catch (error) {
       if (error instanceof Error) {
+        console.log(error)
         res.status(500).json({ message: error.message });
       }
     }
@@ -83,7 +84,8 @@ export class ReservationController {
         roomId: body.roomId,
         startDateTime: body.startDateTime,
         endDateTime: body.endDateTime,
-        description: body.description
+        description: body.description,
+        applyToAll: body.applyToAll
       }
       await this.editReservation.execute(dto, userId)
       res.sendStatus(204);

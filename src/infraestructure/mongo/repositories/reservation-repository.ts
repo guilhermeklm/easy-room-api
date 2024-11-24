@@ -13,20 +13,44 @@ export class ReservationRepository {
     this.roomRepository = roomRepository
   }
 
-  public async update(reservation: Reservation, userId: string) {
+  public async updateOne(reservation: Reservation, userId: string) {
     await ReservationModel.updateOne({
       _id: reservation.id,
       userId: userId
     },
       {
-        title: reservation.title,
-        roomId: reservation.room.roomId,
-        startDateTime: reservation.startDateTime,
-        endDateTime: reservation.endDateTime,
-        description: reservation.description,
-        updatedAt: moment()
+        $set: {
+          title: reservation.title,
+          roomId: reservation.room.roomId,
+          startDateTime: reservation.startDateTime,
+          endDateTime: reservation.endDateTime,
+          description: reservation.description,
+          updatedAt: moment().toDate(),
+        },
       }
     )
+  }
+
+  public async updateReservationAndRecurrences(reservation: Reservation, userId: string) {
+    await ReservationModel.updateMany(
+      {
+        $or: [
+          { _id: reservation.id },
+          { recurrenceParentId: reservation.recurrenceParentId },
+        ],
+        userId: userId,
+      },
+      {
+        $set: {
+          title: reservation.title,
+          roomId: reservation.room.roomId,
+          startDateTime: reservation.startDateTime,
+          endDateTime: reservation.endDateTime,
+          description: reservation.description,
+          updatedAt: moment().toDate(),
+        },
+      }
+    );
   }
 
   public async deleteByIdAndUserId(id: string, userId: string) {
@@ -57,8 +81,8 @@ export class ReservationRepository {
     return Promise.resolve(null)
   }
 
-  public async save(reservation: Reservation, userId: string): Promise<void> {
-    await ReservationModel.create({
+  public async save(reservation: Reservation, userId: string): Promise<string> {
+    const resultSave = await ReservationModel.create({
       title: reservation.title,
       roomId: reservation.room.roomId,
       userId: userId,
@@ -66,7 +90,7 @@ export class ReservationRepository {
       endDateTime: reservation.endDateTime,
       description: reservation.description
     })
-    return Promise.resolve()
+    return Promise.resolve(resultSave.id)
   }
 
   public async saveAll(reservations: Reservation[], userId: string): Promise<void> {
@@ -78,7 +102,7 @@ export class ReservationRepository {
         startDateTime: element.startDateTime,
         endDateTime: element.endDateTime,
         description: element.description,
-        isRecurringInstance: element.isRecurringInstance
+        isRecurring: element.isRecurring
       })
     }
     return Promise.resolve()
