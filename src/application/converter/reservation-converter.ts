@@ -1,11 +1,11 @@
 import moment from "moment";
 import { Reservation } from "../../domains/reservation";
-import { FindReservationDTO } from "../controllers/dtos/find-reservation";
+import { FindReservationOutputDTO } from "../controllers/dtos/output/find-reservation-output"
 
 export class ReservationConverter {
   
   public static toFindReservationDto(reservations: Reservation[]) {
-    let dto: FindReservationDTO[] = []
+    let dto: FindReservationOutputDTO[] = []
     for (const reservation of reservations) {
       dto.push(
         {

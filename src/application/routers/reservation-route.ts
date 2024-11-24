@@ -19,7 +19,7 @@ reservationRoute.get("/api/v1/history/reservations", authValidator.validateToken
 );
 
 reservationRoute.get("/api/v1/reservations", authValidator.validateToken, (req: Request, res: Response) =>
-  reservationController.getNewReservations(req, res)
+  reservationController.getReservations(req, res)
 );
 
 reservationRoute.delete("/api/v1/reservations/:reservationId", authValidator.validateToken, (req: Request, res: Response) =>

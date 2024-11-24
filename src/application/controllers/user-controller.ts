@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { CreateUserDTO } from "./dtos/create-user-dto";
+import { CreateUserDTO } from "../dtos/input/create-user-dto";
 import { CreateUser } from "../../usecases/create-user";
-import { LoginDTO } from "./dtos/login-dto";
+import { LoginDTO } from "../dtos/output/login-dto";
 import { UserLogin } from "../../usecases/user-login";
 import { Jwt } from "../middleware/jwt";
 

@@ -1,5 +1,5 @@
 import { Reservation } from "../domains/reservation";
-import { EditReservationDTO } from "../application/controllers/dtos/edit-reservation-dto";
+import { EditReservationDTO } from "../application/dtos/input/edit-reservation-input"
 import { ReservationRepository } from "../infraestructure/mongo/repositories/reservation-repository";
 import { RoomRepository } from "../infraestructure/mongo/repositories/room-repository";
 

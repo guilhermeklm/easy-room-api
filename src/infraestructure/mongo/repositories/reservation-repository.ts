@@ -1,3 +1,4 @@
+import { FindReservation } from "src/domains/find-reservation";
 import { Reservation } from "../../../domains/reservation";
 import { ReservationModel } from "../schemas/reservation-schema";
 import { RoomRepository } from "./room-repository";
@@ -120,6 +121,33 @@ export class ReservationRepository {
     });
 
     return conflictingReservation !== null;
+  }
+
+  public async findReservations(filter: FindReservation): Promise<Reservation[]> {
+    const filterQuery: any = {};
+
+    if (filter.rooms && filter.rooms.length > 0) {
+      filterQuery.roomId = { $in: filter.rooms };
+    }
+
+    const docs = await ReservationModel.find(filterQuery);
+
+    const mappedReservations: Reservation[] = [];
+
+    for (const doc of docs) {
+      const room = await this.roomRepository.findRoomById(doc.roomId);
+      const reservation = new Reservation(
+        doc.id,
+        doc.title,
+        room,
+        doc.startDateTime,
+        doc.endDateTime,
+        doc.description
+      );
+      mappedReservations.push(reservation);
+    }
+
+    return mappedReservations;
   }
 
   public async listAllReservation(): Promise<Reservation[]> {

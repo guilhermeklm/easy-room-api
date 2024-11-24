@@ -1,4 +1,4 @@
-export interface FindReservationDTO {
+export interface FindReservationOutputDTO {
   id: string
   title: string
   description: string

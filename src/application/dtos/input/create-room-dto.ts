@@ -1,10 +1,8 @@
-import { Location } from "../../../domains/location";
-
 export interface CreateRoomDTO {
   name: string;
   type: string;
   numberOfSeats: number;
-  location: Location;
+  location: LocationDTO;
   additionalResources: ResourceDTO[];
 }
 

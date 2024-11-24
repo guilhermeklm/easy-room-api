@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CreateRoom } from "../../usecases/create-room";
-import { CreateRoomDTO } from "./dtos/create-room-dto";
+import { CreateRoomDTO } from "../dtos/input/create-room-dto";
 import { FindRoom } from "../../usecases/find-room";
 
 export class RoomController {

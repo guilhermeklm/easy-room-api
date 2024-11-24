@@ -1,5 +1,5 @@
 import { UserRepository } from "../infraestructure/mongo/repositories/user-repository";
-import { LoginDTO } from "../application/controllers/dtos/login-dto";
+import { LoginDTO } from "../application/dtos/output/login-dto";
 import bcrypt from "bcrypt"
 
 export class UserLogin {

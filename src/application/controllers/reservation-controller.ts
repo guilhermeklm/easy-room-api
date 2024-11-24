@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { CreateReservation } from "../../usecases/create-reservation";
-import { CreateReservationDTO } from "./dtos/create-reservation-dto";
+import { CreateReservationDTO } from "../dtos/input/create-reservation-input";
 import { FindReservation } from "../../usecases/find-reservation";
 import { ReservationConverter } from "../converter/reservation-converter";
-import { EditReservationDTO } from "./dtos/edit-reservation-dto";
+import { EditReservationDTO } from "../dtos/input/edit-reservation-input";
 import { EditReservation } from "../../usecases/edit-reservation";
 import { DeleteReservation } from "../../usecases/delete-reservation";
+import { FindReservationInputDTO } from "../dtos/input/find-reservation-input";
 
 export class ReservationController {
 
@@ -61,9 +62,19 @@ export class ReservationController {
     }
   }
 
-  public async getNewReservations(_req: Request, res: Response) {
+  public async getReservations(req: Request, res: Response) {
     try {
-      const reservations = await this.findReservation.listAllReservation()
+      const roomsId: string[] = Array.isArray(req.query.roomsId)
+        ? req.query.roomsId.map(id => String(id))
+        : req.query.roomsId
+          ? [String(req.query.roomsId)]
+          : [];
+
+      const filter: FindReservationInputDTO = {
+        roomsId: roomsId
+      };
+
+      const reservations = await this.findReservation.get(filter)
       const dto = ReservationConverter.toFindReservationDto(reservations)
       res.status(200).json(dto);
     } catch (error) {

@@ -1,5 +1,5 @@
 import { Room } from "../domains/room";
-import { CreateRoomDTO, ResourceDTO } from "../application/controllers/dtos/create-room-dto";
+import { CreateRoomDTO, ResourceDTO } from "../application/dtos/input/create-room-dto"
 import { RoomRepository } from "../infraestructure/mongo/repositories/room-repository";
 import { Location } from "../domains/location";
 import { ResourceRepository } from "../infraestructure/mongo/repositories/resource-repository";

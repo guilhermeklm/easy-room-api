@@ -1,5 +1,5 @@
 import { UserRepository } from "../infraestructure/mongo/repositories/user-repository";
-import { CreateUserDTO } from "../application/controllers/dtos/create-user-dto";
+import { CreateUserDTO } from "../application/dtos/input/create-user-dto";
 import { User } from "../domains/user";
 
 export class CreateUser {
