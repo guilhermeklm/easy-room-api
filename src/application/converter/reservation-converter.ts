@@ -15,6 +15,8 @@ export class ReservationConverter {
           startDateTime: moment(reservation.startDateTime).format("yyyy-MM-DD HH:mm").toString(),
           endDateTime: moment(reservation.endDateTime).format("yyyy-MM-DD HH:mm").toString(),
           roomName: reservation.room.name,
+          isRecurring: reservation.isRecurring,
+          isOriginal: reservation.isOriginal,
           locationAddress: reservation.room.location.address
         }
       )

@@ -33,6 +33,9 @@ export class EditReservation {
       reservation.startDateTime,
       reservation.endDateTime,
       reservation.description,
+      currentReservation.isOriginal,
+      currentReservation.isRecurring,
+      currentReservation.recurrenceParentId
     );
 
     currentReservation.update(newReservation)

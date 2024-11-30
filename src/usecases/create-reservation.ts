@@ -32,7 +32,8 @@ export class CreateReservation {
       dto.startDateTime,
       dto.endDateTime,
       dto.description,
-      false,
+      true,
+      true,
       null
     )
 
@@ -55,6 +56,7 @@ export class CreateReservation {
               moment(start, "DD-MM-YYYY, HH:mm").toDate(),
               moment(end, "DD-MM-YYYY, HH:mm").toDate(),
               reservationBase.description,
+              false,
               true,
               reservationBaseId
             ));

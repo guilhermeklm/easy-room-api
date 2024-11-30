@@ -45,8 +45,6 @@ export class ReservationRepository {
         $set: {
           title: reservation.title,
           roomId: reservation.room.roomId,
-          startDateTime: reservation.startDateTime,
-          endDateTime: reservation.endDateTime,
           description: reservation.description,
           updatedAt: moment().toDate(),
         },
@@ -75,7 +73,10 @@ export class ReservationRepository {
         room,
         doc.startDateTime,
         doc.endDateTime,
-        doc.description
+        doc.description,
+        doc.isOriginal,
+        doc.isRecurring,
+        doc.recurrenceParentId,
       )
     }
 
@@ -89,7 +90,10 @@ export class ReservationRepository {
       userId: userId,
       startDateTime: reservation.startDateTime,
       endDateTime: reservation.endDateTime,
-      description: reservation.description
+      description: reservation.description,
+      isRecurring: reservation.isRecurring,
+      isOriginal: reservation.isOriginal,
+      recurrenceParentId: reservation.recurrenceParentId
     })
     return Promise.resolve(resultSave.id)
   }
@@ -103,7 +107,8 @@ export class ReservationRepository {
         startDateTime: element.startDateTime,
         endDateTime: element.endDateTime,
         description: element.description,
-        isRecurring: element.isRecurring
+        isRecurring: element.isRecurring,
+        recurrenceParentId: element.recurrenceParentId
       })
     }
     return Promise.resolve()
@@ -142,7 +147,10 @@ export class ReservationRepository {
         room,
         doc.startDateTime,
         doc.endDateTime,
-        doc.description
+        doc.description,
+        doc.isOriginal,
+        doc.isRecurring,
+        doc.recurrenceParentId
       );
       mappedReservations.push(reservation);
     }
@@ -163,7 +171,10 @@ export class ReservationRepository {
         room,
         doc.startDateTime,
         doc.endDateTime,
-        doc.description
+        doc.description,
+        doc.isOriginal,
+        doc.isRecurring,
+        doc.recurrenceParentId
       );
       mappedReservations.push(reservation);
     }
@@ -220,7 +231,10 @@ export class ReservationRepository {
         room,
         doc.startDateTime,
         doc.endDateTime,
-        doc.description
+        doc.description,
+        doc.isOriginal,
+        doc.isRecurring,
+        doc.recurrenceParentId
       );
       mappedReservations.push(reservation);
     }
