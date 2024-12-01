@@ -32,7 +32,12 @@ export class UserController {
 
     } catch (error) {
       if (error instanceof Error) {
-        res.json(error.message)
+        res.json({
+          status: "error",
+          error: {
+            message: error.message
+          }
+        })
       } else {
         res.json(error)
       }

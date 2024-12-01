@@ -1,6 +1,5 @@
 import express, { Request, Response } from "express";
 import { ControllerFactory } from "../../config/controller/controller-factory";
-import { AuthValidator } from "../middleware/auth-validator";
 
 const userRoute = express.Router();
 const userController = ControllerFactory.getUserControllerInstance();
