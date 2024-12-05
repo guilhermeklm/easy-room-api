@@ -14,6 +14,7 @@ const roomSchema = new Schema({
   location: { type: LocationSchema },
   resources: { type: [ResourceSchema] },
   numberOfSeats: { type: Number },
+  image: { type: String }
 }, {
   timestamps: true,
 });

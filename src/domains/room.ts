@@ -13,6 +13,7 @@ export class Room {
   private _location: Location;
   private _resources: Resource[];
   private _numberOfSeats: number;
+  private _image: string;
 
   constructor(
     roomId: string,
@@ -20,7 +21,8 @@ export class Room {
     type: string,
     location: Location,
     resources: Resource[],
-    numberOfSeats: number
+    numberOfSeats: number,
+    image: string
   ) {
     this._roomId = roomId;
     this._name = name;
@@ -28,27 +30,28 @@ export class Room {
     this._location = location;
     this._resources = resources;
     this._numberOfSeats = numberOfSeats;
+    this._image = image
     this.validate()
   }
 
   public validate() {
-    if(!this.name) {
+    if (!this.name) {
       throw Error("Nome nao pode ser vazio")
     }
 
-    if(!this.type) {
+    if (!this.type) {
       throw Error("Tipo da sala nao pode ser vazio")
     }
 
-    if(!this.location) {
+    if (!this.location) {
       throw Error("Local nao pode ser vazio")
     }
 
-    if(this.resources == null || this.resources.length == 0) {
+    if (this.resources == null || this.resources.length == 0) {
       throw Error("Recursos nao pode ser vazio")
     }
 
-    if(!this.numberOfSeats) {
+    if (!this.numberOfSeats) {
       throw Error("Numero de cadeiras nao pode ser vazio")
     }
   }

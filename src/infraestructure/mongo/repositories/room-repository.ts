@@ -53,7 +53,8 @@ export class RoomRepository {
         doc.location.sector,
       ),
       resources,
-      doc.numberOfSeats
+      doc.numberOfSeats,
+      doc.image,
     ))
   }
 
@@ -82,7 +83,8 @@ export class RoomRepository {
           room.location.sector
         ),
         resources,
-        room.numberOfSeats
+        room.numberOfSeats,
+        room.image,
       ))
     })
 
