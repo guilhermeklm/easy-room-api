@@ -33,7 +33,7 @@ export class CreateReservation {
       dto.endDateTime,
       dto.description,
       true,
-      true,
+      dto.isRecurring,
       null
     )
 

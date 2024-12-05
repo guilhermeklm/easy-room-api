@@ -59,6 +59,60 @@ export class ReservationRepository {
     })
   }
 
+  public async delete(reservation: Reservation) {
+    await ReservationModel.deleteOne({
+      _id: reservation.id,
+    })
+  }
+
+  public async findBaseReservationByRecurringReservationId(recurringReservationId: string) {
+    const recurringReservation = await ReservationModel.findOne({
+      _id: recurringReservationId
+    })
+
+    if (recurringReservation) {
+      const baseRecurring = await ReservationModel.findOne({
+        _id: recurringReservation.recurrenceParentId
+      })
+
+      if (baseRecurring) {
+        const room = await this.roomRepository.findRoomById(baseRecurring.roomId);
+        return new Reservation(
+          baseRecurring.id,
+          baseRecurring.title,
+          room,
+          baseRecurring.startDateTime,
+          baseRecurring.endDateTime,
+          baseRecurring.description,
+          baseRecurring.isOriginal,
+          baseRecurring.isRecurring,
+          baseRecurring.recurrenceParentId,
+        )
+      }
+    }
+    return null
+  }
+
+  public async deleteReservationAndSubsequentEvents(reservationToDelete: Reservation) {
+    const baseQuery = { _id: reservationToDelete.id };
+
+    const filters: any[] = [baseQuery];
+
+    const dateFilter = { startDateTime: { $gte: new Date(reservationToDelete.startDateTime) } };
+
+    if (reservationToDelete.isOriginal) {
+      filters.push(dateFilter);
+    } else {
+      filters.push({ ...dateFilter, recurrenceParentId: reservationToDelete.recurrenceParentId });
+    }
+
+    const query = { $or: filters };
+
+    await ReservationModel.deleteMany(query);
+  }
+
+
+
   public async findByIdAndUserId(id: string, userId: string): Promise<Reservation> {
     const doc = await ReservationModel.findOne({
       _id: id,

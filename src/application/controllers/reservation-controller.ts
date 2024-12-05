@@ -110,8 +110,9 @@ export class ReservationController {
   public async delReservation(req: Request, res: Response) {
     try {
       const id = req.params.reservationId
+      const deleteRecurring = req.query.deleteRecurring === 'true';
       const userId = req.get("x-user-id")
-      await this.deleteReservation.execute(id, userId)
+      await this.deleteReservation.execute(id, userId, deleteRecurring)
       res.sendStatus(204);
     } catch (error) {
       if (error instanceof Error) {
