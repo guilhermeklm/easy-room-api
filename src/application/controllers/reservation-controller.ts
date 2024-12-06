@@ -43,8 +43,8 @@ export class ReservationController {
       await this.createReservation.create(dto, userId)
       res.sendStatus(201);
     } catch (error) {
+      console.log(error)
       if (error instanceof Error) {
-        console.log(error)
         res.status(500).json({ message: error.message });
       }
     }
@@ -56,6 +56,7 @@ export class ReservationController {
       const dto = ReservationConverter.toFindReservationDto(reservations)
       res.status(200).json(dto);
     } catch (error) {
+      console.log(error)
       if (error instanceof Error) {
         res.status(500).json({ message: error.message });
       }
@@ -78,6 +79,7 @@ export class ReservationController {
       const dto = ReservationConverter.toFindReservationDto(reservations)
       res.status(200).json(dto);
     } catch (error) {
+      console.log(error)
       if (error instanceof Error) {
         res.status(500).json({ message: error.message });
       }
@@ -101,6 +103,7 @@ export class ReservationController {
       await this.editReservation.execute(dto, userId)
       res.sendStatus(204);
     } catch (error) {
+      console.log(error)
       if (error instanceof Error) {
         res.status(500).json({ message: error.message });
       }
@@ -115,6 +118,7 @@ export class ReservationController {
       await this.deleteReservation.execute(id, userId, deleteRecurring)
       res.sendStatus(204);
     } catch (error) {
+      console.log(error)
       if (error instanceof Error) {
         res.status(500).json({ message: error.message });
       }

@@ -30,6 +30,7 @@ export class RoomController {
 
       res.status(201).json({status: "success", data: room});
     } catch (error) {
+      console.log(error)
       if (error instanceof Error) {
         res.status(500).json(error.message);
       }
@@ -41,6 +42,7 @@ export class RoomController {
       const rooms = await this.findRoom.list()
       res.status(200).json({status: "success", data: rooms});
     } catch (error) { 
+      console.log(error)
       if (error instanceof Error) {
         res.status(500).json(error.message);
       }

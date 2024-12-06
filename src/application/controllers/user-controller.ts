@@ -31,6 +31,7 @@ export class UserController {
       })
 
     } catch (error) {
+      console.log(error)
       if (error instanceof Error) {
         res.json({
           status: "error",
@@ -62,6 +63,7 @@ export class UserController {
       });
 
     } catch (error) {
+      console.log(error)
       if (error instanceof Error) {
         res.status(401).json(error.message)
       } else {

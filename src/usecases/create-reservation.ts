@@ -91,9 +91,6 @@ export class CreateReservation {
   }
 }
 
-// botar feature de editar todas as reservas criadas com recorrencia
-// ordenacao das salas no historicos
-// adicionar elementos na reserva
 // oq é o elemento e quem é o responsavel, pra preparar a sala
 // email da propria instituicao
 
