@@ -45,7 +45,8 @@ export class CreateRoom {
       createRoomDTO.type,
       location,
       resources,
-      createRoomDTO.numberOfSeats
+      createRoomDTO.numberOfSeats,
+      null,
     )
 
     await this.roomRepository.save(room);
