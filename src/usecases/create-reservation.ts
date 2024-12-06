@@ -43,11 +43,13 @@ export class CreateReservation {
       if (dto.isRecurring) {
         const start = moment(reservationBase.startDateTime, "DD-MM-YYYY, HH:mm");
         const end = moment(reservationBase.endDateTime, "DD-MM-YYYY, HH:mm");
+        const startAux = moment(reservationBase.startDateTime).startOf('day')
+        const endAux = moment(reservationBase.endDateTime).startOf('day')
         const recurrenceEnd = moment(dto.recurrence.endDate, 'DD-MM-YYYY');
 
-        while (start.isBefore(recurrenceEnd)) {
-          const dayOfWeek = start.day();
-
+        while (startAux.isSameOrBefore(recurrenceEnd)) {
+          const dayOfWeek = startAux.day();
+          
           if (dto.recurrence.selectedWeekdays.includes(dayOfWeek) && !start.isSame(reservationBase.startDateTime, 'day')) {
             reservations.push(new Reservation(
               null,
@@ -62,6 +64,8 @@ export class CreateReservation {
             ));
           }
 
+          startAux.add(1, 'days');
+          endAux.add(1, 'days');
           start.add(1, 'days');
           end.add(1, 'days');
         }
