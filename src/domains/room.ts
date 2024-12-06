@@ -79,4 +79,8 @@ export class Room {
   get numberOfSeats(): number {
     return this._numberOfSeats;
   }
+
+  get image(): string {
+    return this._image;
+  }
 }
