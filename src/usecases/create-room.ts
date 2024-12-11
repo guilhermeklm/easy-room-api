@@ -35,7 +35,7 @@ export class CreateRoom {
     
     if(createRoomDTO.additionalResources && createRoomDTO.additionalResources.length > 0) {
       createRoomDTO.additionalResources.forEach((additionalResource: ResourceDTO) => {
-        resources.push(new Resource(additionalResource.name, additionalResource.description))
+        resources.push(new Resource(additionalResource.name, additionalResource.description, additionalResource.quantity))
       })
     }
 

@@ -2,6 +2,7 @@ import { Location } from "./location";
 import { Resource } from "./resource";
 
 export enum TypeRoom {
+  CLASS_ROOM = "CLASS_ROOM",
   MEETING_ROOM = "MEETING_ROOM",
   AUDITORY = "AUDITORY",
 }

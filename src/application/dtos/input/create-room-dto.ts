@@ -9,6 +9,7 @@ export interface CreateRoomDTO {
 export interface ResourceDTO {
   name: string;
   description: string;
+  quantity: number;
 }
 
 export interface LocationDTO {

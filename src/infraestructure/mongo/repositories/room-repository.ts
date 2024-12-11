@@ -9,7 +9,8 @@ export class RoomRepository {
     const resources = room.resources ? room.resources.map((resource: Resource) => {
       return {
         name: resource.name,
-        description: resource.description
+        description: resource.description,
+        quantity: resource.quantity
       };
     }) : [];
 
@@ -38,7 +39,7 @@ export class RoomRepository {
     }
 
     const resources: Resource[] = doc.resources ? doc.resources.map((resource) => {
-      return new Resource(resource.name, resource.description)
+      return new Resource(resource.name, resource.description, resource.quantity)
     }) : [];
 
     return Promise.resolve(new Room(
@@ -68,7 +69,7 @@ export class RoomRepository {
 
     doc.map(room => {
       const resources: Resource[] = room.resources ? room.resources.map((resource) => {
-        return new Resource(resource.name, resource.description)
+        return new Resource(resource.name, resource.description, resource.quantity)
       }) : [];
 
       rooms.push(new Room(

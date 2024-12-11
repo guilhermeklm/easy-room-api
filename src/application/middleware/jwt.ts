@@ -14,6 +14,6 @@ export class Jwt {
 
     const payload = { userId: userId };
 
-    return jwt.sign(payload, jwtSecret, { expiresIn: '30m' });
+    return jwt.sign(payload, jwtSecret);
   }
 }
